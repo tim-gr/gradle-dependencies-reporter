@@ -10,7 +10,7 @@ gradlePlugin {
     plugins {
         create("reporter") {
             id = "com.tgad.reporter"
-            implementationClass = "com.tgad.reporter.DependencyTreePlugin"
+            implementationClass = "com.tgad.reporter.GradleDependenciesReporterPlugin"
             displayName = "Dependents Tree HTML Report"
             description = "Generates an interactive HTML report of which modules depend on the current project."
         }

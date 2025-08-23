@@ -1,8 +1,12 @@
-package com.tgad.reporter
+package com.tgad.reporter.dependents
+
+import com.tgad.reporter.ProjectNode
 
 class HtmlRenderer {
 
-    fun render(root: ProjectNode, title: String): String {
+    fun render(rootNode: ProjectNode, nameStartNode: String): String {
+        val title = "Dependents Tree for $nameStartNode"
+
         val body = buildString {
             appendLine("<h1>$title</h1>")
 
@@ -15,7 +19,7 @@ class HtmlRenderer {
 
             appendLine("<div class='tree'>")
             appendLine("<ul>")
-            append(renderNode(root, isRoot = true))
+            append(renderNode(rootNode, isRoot = true))
             appendLine("</ul>")
             appendLine("</div>")
         }
@@ -24,7 +28,7 @@ class HtmlRenderer {
     }
 
     private fun renderNode(node: ProjectNode, isRoot: Boolean): String {
-        val label = escape("${node.project.path}${if (node.isCycleTerminal) " (cycle)" else ""}")
+        val label = escape("${node.name}${if (node.isCycleTerminal) " (cycle)" else ""}")
 
         return if (node.children.isNotEmpty()) {
             """
