@@ -1,6 +1,7 @@
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
+    `maven-publish`
 }
 
 group = "com.tgad"
@@ -58,4 +59,16 @@ gradlePlugin.testSourceSets.add(sourceSets["functionalTest"])
 tasks.named<Task>("check") {
     // Include functionalTest as part of the check lifecycle
     dependsOn(testing.suites.named("functionalTest"))
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenLocal") {
+            groupId = "com.tgad"
+            artifactId = "gradle-dependencies-reporter"
+            version = "1.0.0"
+
+            from(components["java"])
+        }
+    }
 }

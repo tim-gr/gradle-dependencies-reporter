@@ -18,6 +18,7 @@ class GradleDependenciesReporterPlugin : Plugin<Project> {
                 val dependencies = proj.configurations.flatMap { configuration ->
                     configuration.dependencies.withType(org.gradle.api.artifacts.ProjectDependency::class.java)
                         .map { it.path }
+                        .filter { it != proj.path }
                 }.distinct()
                 proj.path to dependencies
             }
