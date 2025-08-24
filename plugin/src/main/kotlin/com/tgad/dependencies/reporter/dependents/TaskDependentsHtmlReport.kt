@@ -8,7 +8,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
-internal abstract class TaskCreateDependentsHtmlReport : DefaultTask() {
+internal abstract class TaskDependentsHtmlReport : DefaultTask() {
 
     @get:Input
     abstract val inputStartModuleName: Property<String>
@@ -21,25 +21,29 @@ internal abstract class TaskCreateDependentsHtmlReport : DefaultTask() {
 
     @TaskAction
     fun generate() {
-        if (inputStartModuleName.get().isBlank()) {
+        val startModuleName = inputStartModuleName.get()
+
+        if (startModuleName.isBlank()) {
             throw IllegalArgumentException("Please provide the 'module' parameter, e.g., -Pmodule=:A")
         }
 
-        if (!inputModuleDependencies.get().keys.contains("${inputStartModuleName.get()}")) {
-            throw IllegalArgumentException("Module '${inputStartModuleName.get()}' not found.")
+        if (!inputModuleDependencies.get().keys.contains(startModuleName)) {
+            throw IllegalArgumentException("Module '$startModuleName' not found.")
         }
 
         val rootNode = DependentsAnalyzer().buildDependentsTree(
-            target = inputStartModuleName.get(),
+            target = startModuleName,
             dependencyMap = inputModuleDependencies.get(),
         )
 
         val htmlText = HtmlRenderer().render(
             rootNode = rootNode,
-            nameStartNode = inputStartModuleName.get(),
+            nameStartNode = startModuleName,
         )
 
-        val outputFile = outputDir.file("dependents-report.html").get().asFile
+        val outputFile = outputDir.file(
+            "dependents-report$startModuleName.html"
+        ).get().asFile
         outputFile.parentFile.mkdirs()
         outputFile.writeText(htmlText, Charsets.UTF_8)
     }

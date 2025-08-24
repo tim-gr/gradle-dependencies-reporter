@@ -1,6 +1,6 @@
 package com.tgad.dependencies.reporter
 
-import com.tgad.dependencies.reporter.dependents.TaskCreateDependentsHtmlReport
+import com.tgad.dependencies.reporter.dependents.TaskDependentsHtmlReport
 import org.gradle.api.GradleException
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.assertThrows
 class GradleDependenciesReporterPluginTest {
 
     @Test
-    fun `plugin registers createDependentsHtmlReport task on project`() {
+    fun `plugin registers dependentsHtmlReport task on project`() {
         val rootProject = ProjectBuilder.builder().withName("root").build()
 
         rootProject.plugins.apply(PLUGIN_NAME)
@@ -41,7 +41,7 @@ class GradleDependenciesReporterPluginTest {
         rootProject.plugins.apply(PLUGIN_NAME)
 
         val task = rootProject.tasks.findByName(TASK_DEPENDENTS_HTML_REPORT)
-                as TaskCreateDependentsHtmlReport
+                as TaskDependentsHtmlReport
 
         assertNotNull(task.outputDir.orNull)
 

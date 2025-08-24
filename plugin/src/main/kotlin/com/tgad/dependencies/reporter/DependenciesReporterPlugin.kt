@@ -1,6 +1,6 @@
 package com.tgad.dependencies.reporter
 
-import com.tgad.dependencies.reporter.dependents.TaskCreateDependentsHtmlReport
+import com.tgad.dependencies.reporter.dependents.TaskDependentsHtmlReport
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -10,13 +10,14 @@ internal class DependenciesReporterPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.tasks.register(
             "dependentsHtmlReport",
-            TaskCreateDependentsHtmlReport::class.java
+            TaskDependentsHtmlReport::class.java
         ) {
             if (project != project.rootProject) {
                 throw GradleException("This plugin must be applied to the root project.")
             }
 
-            val moduleParam = project.providers.gradleProperty("module").orElse("")
+            val moduleParam = project.providers.gradleProperty("module")
+                .orElse("")
             inputStartModuleName.set(moduleParam)
 
             outputDir.set(project.layout.buildDirectory.dir("reports"))
