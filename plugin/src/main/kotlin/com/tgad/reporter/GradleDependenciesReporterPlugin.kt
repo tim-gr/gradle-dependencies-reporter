@@ -6,18 +6,17 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
 
-class GradleDependenciesReporterPlugin : Plugin<Project> {
+internal class GradleDependenciesReporterPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.tasks.register(
-            "createDependentsHtmlReport",
+            "dependentsHtmlReport",
             TaskCreateDependentsHtmlReport::class.java
         ) {
             if (project != project.rootProject) {
                 throw GradleException("This plugin must be applied to the root project.")
             }
 
-            val moduleParam = project.providers.gradleProperty("module")
-                .orNull ?: throw GradleException("The 'module' parameter is mandatory, e.g., -Pmodule=:A")
+            val moduleParam = project.providers.gradleProperty("module").orElse("")
             inputStartModuleName.set(moduleParam)
 
             outputDir.set(project.layout.buildDirectory.dir("reports"))

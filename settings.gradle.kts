@@ -1,9 +1,7 @@
 rootProject.name = "gradle-dependency-reporter"
 
-// include all modules
-include(":A", ":B", ":C", ":D")
+include(":plugin")
 
-// make the plugin available to other modules via composite build
-pluginManagement {
-    includeBuild("plugin")
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }

@@ -9,11 +9,12 @@ version = "1.0.0"
 
 gradlePlugin {
     plugins {
-        create("reporter") {
-            id = "com.tgad.reporter"
+        create("gradleDependenciesReporterPlugin") {
+            id = "com.tgad.gradle.dependencies.reporter"
             implementationClass = "com.tgad.reporter.GradleDependenciesReporterPlugin"
-            displayName = "Dependents Tree HTML Report"
-            description = "Generates an interactive HTML report of which modules depend on the current project."
+            displayName = "Gradle Dependencies HTML Reporter"
+            description = "Generates an interactive HTML report to analyse which modules depend on any given project - both directly and transitively."
+            tags = listOf("gradle", "dependencies", "report")
         }
     }
 }
@@ -23,7 +24,7 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 }
 
 testing {
@@ -67,7 +68,6 @@ publishing {
             groupId = "com.tgad"
             artifactId = "gradle-dependencies-reporter"
             version = "1.0.0"
-
             from(components["java"])
         }
     }

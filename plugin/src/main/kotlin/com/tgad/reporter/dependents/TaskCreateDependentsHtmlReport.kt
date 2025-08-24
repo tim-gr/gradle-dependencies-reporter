@@ -8,7 +8,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
-abstract class TaskCreateDependentsHtmlReport : DefaultTask() {
+internal abstract class TaskCreateDependentsHtmlReport : DefaultTask() {
 
     @get:Input
     abstract val inputStartModuleName: Property<String>
@@ -21,6 +21,10 @@ abstract class TaskCreateDependentsHtmlReport : DefaultTask() {
 
     @TaskAction
     fun generate() {
+        if (inputStartModuleName.get().isBlank()) {
+            throw IllegalArgumentException("Please provide the 'module' parameter, e.g., -Pmodule=:A")
+        }
+
         if (!inputModuleDependencies.get().keys.contains("${inputStartModuleName.get()}")) {
             throw IllegalArgumentException("Module '${inputStartModuleName.get()}' not found.")
         }

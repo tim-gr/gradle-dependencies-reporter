@@ -1,8 +1,6 @@
 package com.tgad.reporter.dependents
 
-import com.tgad.reporter.ProjectNode
-
-class DependentsAnalyzer {
+internal class DependentsAnalyzer {
 
     fun buildDependentsTree(target: String, dependencyMap: Map<String, List<String>>): ProjectNode {
         val inverseGraph = buildInverseGraph(dependencyMap)
@@ -14,16 +12,14 @@ class DependentsAnalyzer {
 
     private fun buildInverseGraph(dependencyMap: Map<String, List<String>>): Map<String, List<String>> {
         val map = mutableMapOf<String, MutableList<String>>()
-
-        dependencyMap.keys.forEach { map[it] = mutableListOf() }
-
         dependencyMap.forEach { key, value ->
-            value.forEach {
-                map.getValue(it).add(key)
+            value.forEach { dep ->
+                map.getOrPut(dep) { mutableListOf() }.add(key)
             }
+            // Ensure every project appears in the map, even if it has no dependents
+            map.getOrPut(key) { mutableListOf() }
         }
-
-        return map.mapValues { (_, v) -> v.distinct().sortedBy { it } }
+        return map.mapValues { (_, v) -> v.distinct().sorted() }
     }
 
     private fun dfs(
@@ -38,7 +34,7 @@ class DependentsAnalyzer {
         }
 
         path.addLast(current)
-        val dependents = inverseGraph[current].orEmpty()
+        val dependents = inverseGraph[current]!!
 
         val children = dependents.map { dep ->
             dfs(dep, inverseGraph, path, onCycle)

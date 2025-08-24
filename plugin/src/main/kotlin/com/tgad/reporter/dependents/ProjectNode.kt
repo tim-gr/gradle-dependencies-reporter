@@ -1,6 +1,6 @@
-package com.tgad.reporter
+package com.tgad.reporter.dependents
 
-data class ProjectNode(
+internal data class ProjectNode(
     val name: String,
     val children: List<ProjectNode> = emptyList(),
     val isCycleTerminal: Boolean = false

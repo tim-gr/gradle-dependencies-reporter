@@ -1,8 +1,6 @@
 package com.tgad.reporter.dependents
 
-import com.tgad.reporter.ProjectNode
-
-class HtmlRenderer {
+internal class HtmlRenderer {
 
     fun render(rootNode: ProjectNode, nameStartNode: String): String {
         val title = "Dependents Tree for $nameStartNode"
