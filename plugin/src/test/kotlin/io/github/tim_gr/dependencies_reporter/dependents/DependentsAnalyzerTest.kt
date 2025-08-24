@@ -1,4 +1,4 @@
-package com.tgad.dependencies.reporter.dependents
+package io.github.tim_gr.dependencies_reporter.dependents
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

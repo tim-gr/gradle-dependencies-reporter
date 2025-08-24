@@ -1,26 +1,27 @@
 plugins {
     `kotlin-dsl`
-    `java-gradle-plugin`
-    `maven-publish`
-}
-
-group = "com.tgad"
-version = "1.0.0"
-
-gradlePlugin {
-    plugins {
-        create("gradleDependenciesReporterPlugin") {
-            id = "com.tgad.dependencies.reporter"
-            implementationClass = "com.tgad.dependencies.reporter.DependenciesReporterPlugin"
-            displayName = "Gradle Dependencies HTML Reporter"
-            description = "Generates an interactive HTML report to analyse which modules depend on any given project - both directly and transitively."
-            tags = listOf("gradle", "dependencies", "report")
-        }
-    }
+    id("com.gradle.plugin-publish") version "1.3.1"
+    // TODO Signing
 }
 
 repositories {
     mavenCentral()
+}
+
+group = "io.github.tim-gr"
+version = "1.0.0"
+
+gradlePlugin {
+    website = "https://github.com/tim-gr/gradle-dependency-reporter"
+    plugins {
+        create("gradleDependenciesReporterPlugin") {
+            id = "io.github.tim-gr.dependencies-reporter"
+            implementationClass = "io.github.tim_gr.dependencies_reporter.DependenciesReporterPlugin"
+            displayName = "Gradle Dependencies Reporter"
+            description = "Creates an interactive HTML report to help with analysing which modules depend on a given project - both directly and transitively."
+            tags = listOf("gradle", "dependencies", "report")
+        }
+    }
 }
 
 kotlin {
@@ -30,7 +31,6 @@ kotlin {
 dependencies {
     testImplementation(kotlin("test"))
     testImplementation(libs.junit.jupiter)
-    testImplementation(gradleTestKit())
 }
 
 tasks.test {
@@ -40,7 +40,7 @@ tasks.test {
 publishing {
     publications {
         create<MavenPublication>("mavenLocal") {
-            groupId = "com.tgad"
+            groupId = "io.github.tim-gr"
             artifactId = "dependencies-reporter"
             version = "1.0.0"
             from(components["java"])

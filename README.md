@@ -17,7 +17,7 @@ the dependency graphs of your multi-module Gradle project.
 
    ```kotlin
    plugins {
-       id("com.tgad.dependencies.reporter") version "1.0.0"
+       id("io.github.tim-gr.dependencies-reporter") version "1.0.0"
    }
    ```
    

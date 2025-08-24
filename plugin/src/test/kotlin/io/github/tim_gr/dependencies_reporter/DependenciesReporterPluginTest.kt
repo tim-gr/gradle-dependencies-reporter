@@ -1,6 +1,6 @@
-package com.tgad.dependencies.reporter
+package io.github.tim_gr.dependencies_reporter
 
-import com.tgad.dependencies.reporter.dependents.TaskDependentsHtmlReport
+import io.github.tim_gr.dependencies_reporter.dependents.TaskDependentsHtmlReport
 import org.gradle.api.GradleException
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -50,7 +50,7 @@ class GradleDependenciesReporterPluginTest {
     }
 
     companion object {
-        private const val PLUGIN_NAME = "com.tgad.dependencies.reporter"
+        private const val PLUGIN_NAME = "io.github.tim-gr.dependencies-reporter"
         private const val TASK_DEPENDENTS_HTML_REPORT = "dependentsHtmlReport"
     }
 }
