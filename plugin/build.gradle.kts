@@ -29,7 +29,7 @@ kotlin {
 
 dependencies {
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testImplementation(libs.junit.jupiter)
     testImplementation(gradleTestKit())
 }
 
@@ -41,7 +41,7 @@ publishing {
     publications {
         create<MavenPublication>("mavenLocal") {
             groupId = "com.tgad"
-            artifactId = "gradle-dependencies-reporter"
+            artifactId = "dependencies-reporter"
             version = "1.0.0"
             from(components["java"])
         }
