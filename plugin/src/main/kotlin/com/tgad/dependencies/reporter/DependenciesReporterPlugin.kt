@@ -1,12 +1,12 @@
-package com.tgad.reporter
+package com.tgad.dependencies.reporter
 
-import com.tgad.reporter.dependents.TaskCreateDependentsHtmlReport
+import com.tgad.dependencies.reporter.dependents.TaskCreateDependentsHtmlReport
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
 
-internal class GradleDependenciesReporterPlugin : Plugin<Project> {
+internal class DependenciesReporterPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.tasks.register(
             "dependentsHtmlReport",

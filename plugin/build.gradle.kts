@@ -10,8 +10,8 @@ version = "1.0.0"
 gradlePlugin {
     plugins {
         create("gradleDependenciesReporterPlugin") {
-            id = "com.tgad.gradle.dependencies.reporter"
-            implementationClass = "com.tgad.reporter.GradleDependenciesReporterPlugin"
+            id = "com.tgad.dependencies.reporter"
+            implementationClass = "com.tgad.dependencies.reporter.DependenciesReporterPlugin"
             displayName = "Gradle Dependencies HTML Reporter"
             description = "Generates an interactive HTML report to analyse which modules depend on any given project - both directly and transitively."
             tags = listOf("gradle", "dependencies", "report")

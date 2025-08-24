@@ -1,4 +1,4 @@
-package com.tgad.reporter.dependents
+package com.tgad.dependencies.reporter.dependents
 
 internal data class ProjectNode(
     val name: String,

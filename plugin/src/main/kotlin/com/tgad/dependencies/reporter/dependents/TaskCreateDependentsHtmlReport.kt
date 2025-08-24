@@ -1,4 +1,4 @@
-package com.tgad.reporter.dependents
+package com.tgad.dependencies.reporter.dependents
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty

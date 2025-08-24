@@ -1,6 +1,6 @@
-package com.tgad.reporter
+package com.tgad.dependencies.reporter
 
-import com.tgad.reporter.dependents.TaskCreateDependentsHtmlReport
+import com.tgad.dependencies.reporter.dependents.TaskCreateDependentsHtmlReport
 import org.gradle.api.GradleException
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -12,11 +12,11 @@ class GradleDependenciesReporterPluginTest {
 
     @Test
     fun `plugin registers createDependentsHtmlReport task on project`() {
-        val project = ProjectBuilder.builder().withName("root").build()
+        val rootProject = ProjectBuilder.builder().withName("root").build()
 
-        project.plugins.apply(PLUGIN_NAME)
+        rootProject.plugins.apply(PLUGIN_NAME)
 
-        assertNotNull(project.tasks.findByName(TASK_DEPENDENTS_HTML_REPORT))
+        assertNotNull(rootProject.tasks.findByName(TASK_DEPENDENTS_HTML_REPORT))
     }
 
     @Test
@@ -34,22 +34,23 @@ class GradleDependenciesReporterPluginTest {
 
     @Test
     fun `plugin configures input properties`() {
-        val project = ProjectBuilder.builder().withName("root").build()
-        project.plugins.apply(PLUGIN_NAME)
+        val rootProject = ProjectBuilder.builder().withName("root").build()
+        ProjectBuilder.builder().withName("sub")
+            .withParent(rootProject).build()
 
-        val task = project.tasks.findByName(TASK_DEPENDENTS_HTML_REPORT)
+        rootProject.plugins.apply(PLUGIN_NAME)
+
+        val task = rootProject.tasks.findByName(TASK_DEPENDENTS_HTML_REPORT)
                 as TaskCreateDependentsHtmlReport
 
-        // It should set an outputDir
         assertNotNull(task.outputDir.orNull)
 
-        // Module dependencies map should include at least the root project
-        val deps = task.inputModuleDependencies.get()
-        assertEquals(true, deps.containsKey(":"))
+        val dependencies = task.inputModuleDependencies.get()
+        assertEquals(true, dependencies.containsKey(":sub"))
     }
 
     companion object {
-        private const val PLUGIN_NAME = "com.tgad.gradle.dependencies.reporter"
+        private const val PLUGIN_NAME = "com.tgad.dependencies.reporter"
         private const val TASK_DEPENDENTS_HTML_REPORT = "dependentsHtmlReport"
     }
 }
