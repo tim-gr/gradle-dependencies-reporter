@@ -21,6 +21,10 @@ abstract class TaskCreateDependentsHtmlReport : DefaultTask() {
 
     @TaskAction
     fun generate() {
+        if (!inputModuleDependencies.get().keys.contains("${inputStartModuleName.get()}")) {
+            throw IllegalArgumentException("Module '${inputStartModuleName.get()}' not found.")
+        }
+
         val dependentsTree = DependentsAnalyzer().buildDependentsTree(
             target = inputStartModuleName.get(),
             dependencyMap = inputModuleDependencies.get(),
