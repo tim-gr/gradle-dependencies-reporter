@@ -3,10 +3,10 @@ package com.tgad.reporter
 import com.tgad.reporter.dependents.TaskCreateDependentsHtmlReport
 import org.gradle.api.GradleException
 import org.gradle.testfixtures.ProjectBuilder
-import kotlin.test.Test
-import kotlin.test.assertNotNull
-import kotlin.test.assertFailsWith
-import kotlin.test.assertEquals
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class GradleDependenciesReporterPluginTest {
 
@@ -27,7 +27,7 @@ class GradleDependenciesReporterPluginTest {
 
         subProject.plugins.apply(PLUGIN_NAME)
 
-        assertFailsWith<GradleException> {
+        assertThrows<GradleException> {
             subProject.tasks.findByName(TASK_DEPENDENTS_HTML_REPORT)
         }
     }
@@ -49,7 +49,7 @@ class GradleDependenciesReporterPluginTest {
     }
 
     companion object {
-        private const val PLUGIN_NAME = "com.tgad.reporter"
+        private const val PLUGIN_NAME = "com.tgad.gradle.dependencies.reporter"
         private const val TASK_DEPENDENTS_HTML_REPORT = "dependentsHtmlReport"
     }
 }

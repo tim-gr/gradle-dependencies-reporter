@@ -29,13 +29,13 @@ internal abstract class TaskCreateDependentsHtmlReport : DefaultTask() {
             throw IllegalArgumentException("Module '${inputStartModuleName.get()}' not found.")
         }
 
-        val dependentsTree = DependentsAnalyzer().buildDependentsTree(
+        val rootNode = DependentsAnalyzer().buildDependentsTree(
             target = inputStartModuleName.get(),
             dependencyMap = inputModuleDependencies.get(),
         )
 
         val htmlText = HtmlRenderer().render(
-            rootNode = dependentsTree,
+            rootNode = rootNode,
             nameStartNode = inputStartModuleName.get(),
         )
 
