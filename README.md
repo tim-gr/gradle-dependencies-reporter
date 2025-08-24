@@ -25,3 +25,6 @@ the dependency graphs of your multi-module Gradle project.
    ```bash
    ./gradlew dependentsHtmlReport -Pmodule=:feature:A
    ```
+
+## Example Report
+<img width="756" height="504" alt="example_report" src="https://github.com/user-attachments/assets/eb917821-d123-4a32-89ab-7f235be40705" />
