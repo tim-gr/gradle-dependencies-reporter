@@ -7,7 +7,11 @@ internal class HtmlRenderer {
 
         val body = buildString {
             appendLine("<h1>$title</h1>")
-            appendLine("<p>Excluded modules -> ${excludedModules.joinToString(", ") }</p>")
+            if (excludedModules.isNotEmpty()) {
+                appendLine("<p>Excluded modules -> ${excludedModules.joinToString(", ") }</p>")
+            } else {
+                appendLine("<p>No excluded modules</p>")
+            }
 
             appendLine("""
             <div class="toolbar">
