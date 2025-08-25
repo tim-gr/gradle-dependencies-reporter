@@ -1,6 +1,6 @@
 plugins {
     `kotlin-dsl`
-    id("com.gradle.plugin-publish") version "1.3.1"
+    alias(libs.plugins.gradle.publish)
     id("signing")
 }
 
@@ -23,7 +23,7 @@ gradlePlugin {
             id = "io.github.tim-gr.dependencies-reporter"
             implementationClass = "io.github.tim_gr.dependencies_reporter.DependenciesReporterPlugin"
             displayName = "Gradle Dependencies Reporter"
-            description = "Creates an interactive HTML report to help with analysing which modules depend on a given project - both directly and transitively."
+            description = "Creates an interactive HTML report that helps analyze which modules depend on a given project ('dependents'), both directly and transitively."
             tags = listOf("report", "dependencies", "dependents")
         }
     }
