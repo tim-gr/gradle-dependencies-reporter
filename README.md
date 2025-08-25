@@ -32,4 +32,4 @@ the dependency graphs of your multi-module Gradle project.
 3. The generated HTML report will be located at `build/reports/dependencies-reporter/dependents-report-<module>.html`.
 
 ## Example Report
-<img width="667" height="560" alt="Example report" src="https://github.com/user-attachments/assets/78fa1bec-40b1-4eea-a601-8c775418c9bd" />
+<img width="702" height="639" alt="Example report" src="https://github.com/user-attachments/assets/7c705cd7-6ed8-41f6-b42f-ba396f41538b" />
