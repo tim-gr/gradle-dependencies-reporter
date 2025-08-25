@@ -1,6 +1,6 @@
-# gradle-dependency-reporter
+# Gradle Dependencies Reporter
 
-This repository contains a custom Gradle plugin for Gradle dependencies reports.
+This repository contains a custom Gradle plugin for Gradle project dependencies reports.
 
 When applied to the root project of your multi-module Gradle project, the plugin registers a task
 to generate an interactive HTML dependencies report. This report visualizes how modules depend on
@@ -32,4 +32,4 @@ the dependency graphs of your multi-module Gradle project.
 3. The generated HTML report will be located at `build/reports/dependencies-reporter/dependents-report-<module>.html`.
 
 ## Example Report
-<img width="756" height="504" alt="example_report" src="https://github.com/user-attachments/assets/eb917821-d123-4a32-89ab-7f235be40705" />
+<img width="667" height="560" alt="Example report" src="https://github.com/user-attachments/assets/78fa1bec-40b1-4eea-a601-8c775418c9bd" />
