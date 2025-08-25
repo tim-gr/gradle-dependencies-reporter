@@ -14,7 +14,6 @@ the dependency graphs of your multi-module Gradle project.
 ## Usage
 
 1. Apply the plugin in your root project's build file (`build.gradle.kts`):
-
    ```kotlin
    plugins {
        id("io.github.tim-gr.dependencies-reporter") version "1.0.0"
@@ -22,10 +21,15 @@ the dependency graphs of your multi-module Gradle project.
    ```
    
 2. Run the following Gradle task to generate the report (replace the module name as needed):
-
    ```bash
    ./gradlew dependentsHtmlReport -Pmodule=:feature:A
    ```
+   You can also exclude certain modules from the report by adding the `-Pexcluded` parameter:
+   ```bash
+   ./gradlew dependentsHtmlReport -Pmodule=:feature:A -Pexcluded=:core:logging,:core:network
+   ```
+   
+3. The generated HTML report will be located at `build/reports/dependencies-reporter/dependents-report-<module>.html`.
 
 ## Example Report
 <img width="756" height="504" alt="example_report" src="https://github.com/user-attachments/assets/eb917821-d123-4a32-89ab-7f235be40705" />

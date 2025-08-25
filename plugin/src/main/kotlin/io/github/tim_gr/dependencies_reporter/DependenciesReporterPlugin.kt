@@ -24,7 +24,7 @@ internal class DependenciesReporterPlugin : Plugin<Project> {
                 .orElse("")
             inputExcludedModules.set(excludedModulesParam)
 
-            outputDir.set(project.layout.buildDirectory.dir("reports"))
+            outputDir.set(project.layout.buildDirectory.dir("reports/dependencies-reporter"))
 
             val moduleDependencies = project.subprojects.associate { proj ->
                 val dependencies = proj.configurations.flatMap { configuration ->
