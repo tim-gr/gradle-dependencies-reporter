@@ -14,6 +14,9 @@ internal abstract class TaskDependentsHtmlReport : DefaultTask() {
     abstract val inputStartModuleName: Property<String>
 
     @get:Input
+    abstract val inputExcludedModules: Property<String>
+
+    @get:Input
     abstract val inputModuleDependencies: MapProperty<String, List<String>>
 
     @get:OutputDirectory
@@ -31,14 +34,21 @@ internal abstract class TaskDependentsHtmlReport : DefaultTask() {
             throw IllegalArgumentException("Module '$startModuleName' not found.")
         }
 
+        val excludedModules = inputExcludedModules.get()
+            .split(',')
+            .map { it.trim() }
+            .filter { it.isNotBlank() }
+
         val rootNode = DependentsAnalyzer().buildDependentsTree(
             target = startModuleName,
             dependencyMap = inputModuleDependencies.get(),
+            excludedModules = excludedModules,
         )
 
         val htmlText = HtmlRenderer().render(
             rootNode = rootNode,
             nameStartNode = startModuleName,
+            excludedModules = excludedModules,
         )
 
         val outputFile = outputDir.file(

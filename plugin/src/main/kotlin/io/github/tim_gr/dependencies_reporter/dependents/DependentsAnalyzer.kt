@@ -2,19 +2,26 @@ package io.github.tim_gr.dependencies_reporter.dependents
 
 internal class DependentsAnalyzer {
 
-    fun buildDependentsTree(target: String, dependencyMap: Map<String, List<String>>): ProjectNode {
-        val inverseGraph = buildInverseGraph(dependencyMap)
+    fun buildDependentsTree(
+        target: String,
+        dependencyMap: Map<String, List<String>>,
+        excludedModules: List<String>,
+    ): ProjectNode {
+        val inverseGraph = buildInverseGraph(dependencyMap, excludedModules)
         val visitedPath = ArrayDeque<String>()
         return dfs(target, inverseGraph, visitedPath) { cycle ->
             println("[Warning] Cycle detected: ${cycle.joinToString(" -> ") { it }}")
         }
     }
 
-    private fun buildInverseGraph(dependencyMap: Map<String, List<String>>): Map<String, List<String>> {
+    private fun buildInverseGraph(
+        dependencyMap: Map<String, List<String>>,
+        excludedModules: List<String>,
+    ): Map<String, List<String>> {
         val map = mutableMapOf<String, MutableList<String>>()
         dependencyMap.forEach { key, value ->
             value.forEach { dep ->
-                map.getOrPut(dep) { mutableListOf() }.add(key)
+                map.getOrPut(dep) { mutableListOf() }.takeIf { key !in excludedModules }?.add(key)
             }
             // Ensure every project appears in the map, even if it has no dependents
             map.getOrPut(key) { mutableListOf() }

@@ -2,11 +2,12 @@ package io.github.tim_gr.dependencies_reporter.dependents
 
 internal class HtmlRenderer {
 
-    fun render(rootNode: ProjectNode, nameStartNode: String): String {
+    fun render(rootNode: ProjectNode, nameStartNode: String, excludedModules: List<String>): String {
         val title = "Dependents Tree for $nameStartNode"
 
         val body = buildString {
             appendLine("<h1>$title</h1>")
+            appendLine("<p>Excluded modules -> ${excludedModules.joinToString(", ") }</p>")
 
             appendLine("""
             <div class="toolbar">

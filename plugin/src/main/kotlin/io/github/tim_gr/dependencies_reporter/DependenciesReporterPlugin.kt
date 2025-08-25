@@ -20,9 +20,13 @@ internal class DependenciesReporterPlugin : Plugin<Project> {
                 .orElse("")
             inputStartModuleName.set(moduleParam)
 
+            val excludedModulesParam = project.providers.gradleProperty("excluded")
+                .orElse("")
+            inputExcludedModules.set(excludedModulesParam)
+
             outputDir.set(project.layout.buildDirectory.dir("reports"))
 
-            val moduleDependencies = project.allprojects.associate { proj ->
+            val moduleDependencies = project.subprojects.associate { proj ->
                 val dependencies = proj.configurations.flatMap { configuration ->
                     configuration.dependencies.withType(ProjectDependency::class.java)
                         .map { it.path }

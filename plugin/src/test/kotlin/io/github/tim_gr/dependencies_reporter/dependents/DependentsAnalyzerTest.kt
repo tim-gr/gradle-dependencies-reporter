@@ -15,7 +15,7 @@ class DependentsAnalyzerTest {
             ":C" to emptyList()
         )
 
-        val tree = analyzer.buildDependentsTree(":C", dependencyMap)
+        val tree = analyzer.buildDependentsTree(":C", dependencyMap, emptyList())
 
         assertEquals(":C", tree.name)
         assertEquals(1, tree.children.size)
@@ -32,7 +32,7 @@ class DependentsAnalyzerTest {
             ":C" to emptyList()
         )
 
-        val tree = analyzer.buildDependentsTree(":C", dependencyMap)
+        val tree = analyzer.buildDependentsTree(":C", dependencyMap, emptyList())
 
         assertEquals(":C", tree.name)
         assertEquals(2, tree.children.size)
@@ -48,7 +48,7 @@ class DependentsAnalyzerTest {
             ":B" to emptyList()
         )
 
-        val tree = analyzer.buildDependentsTree(":A", dependencyMap)
+        val tree = analyzer.buildDependentsTree(":A", dependencyMap, emptyList())
 
         assertEquals(":A", tree.name)
         assertEquals(0, tree.children.size)
@@ -62,7 +62,7 @@ class DependentsAnalyzerTest {
             ":C" to listOf(":A")
         )
 
-        val tree = analyzer.buildDependentsTree(":A", dependencyMap)
+        val tree = analyzer.buildDependentsTree(":A", dependencyMap, emptyList())
 
         val cNode = tree.children[0]
         val bNode = cNode.children[0]
@@ -83,8 +83,26 @@ class DependentsAnalyzerTest {
             ":C" to emptyList()
         )
 
-        val treeC = analyzer.buildDependentsTree(":C", dependencyMap)
+        val treeC = analyzer.buildDependentsTree(":C", dependencyMap, emptyList())
         assertEquals(":C", treeC.name)
         assertEquals(0, treeC.children.size)
+    }
+
+    @Test
+    fun `excluded modules are not shown`() {
+        val dependencyMap = mapOf(
+            ":A" to listOf(":B"),
+            ":B" to listOf(":C"),
+            ":C" to emptyList()
+        )
+
+        val treeWithExcludedModule = analyzer.buildDependentsTree(":C", dependencyMap, listOf(":B"))
+        assertEquals(":C", treeWithExcludedModule.name)
+        assertEquals(0, treeWithExcludedModule.children.size)
+
+        val treeWithoutExclusions = analyzer.buildDependentsTree(":C", dependencyMap, emptyList())
+        assertEquals(":C", treeWithoutExclusions.name)
+        assertEquals(1, treeWithoutExclusions.children.size)
+        assertEquals(":B", treeWithoutExclusions.children[0].name)
     }
 }
