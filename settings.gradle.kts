@@ -1,4 +1,4 @@
-rootProject.name = "gradle-dependency-reporter"
+rootProject.name = "gradle-dependencies-reporter"
 
 include(":plugin")
 

@@ -16,8 +16,8 @@ group = "io.github.tim-gr"
 version = "1.0.0"
 
 gradlePlugin {
-    website = "https://github.com/tim-gr/gradle-dependency-reporter"
-    vcsUrl = "https://github.com/tim-gr/gradle-dependency-reporter.git"
+    website = "https://github.com/tim-gr/gradle-dependencies-reporter/wiki"
+    vcsUrl = "https://github.com/tim-gr/gradle-dependencies-reporter"
     plugins {
         create("gradleDependenciesReporterPlugin") {
             id = "io.github.tim-gr.dependencies-reporter"
